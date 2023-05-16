@@ -435,7 +435,7 @@ parameters:
   - displayName: SonarQube version
     name: SONARQUBE_VERSION
     required: true
-    value: "8.2.2"
+    value: "9.9.1"
   - description: Password for SonarQube Server PostgreSQL backend
     displayName: SonarQube's PostgreSQL Password
     from: "[a-zA-Z0-9]{16}"
