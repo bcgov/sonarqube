@@ -1,4 +1,7 @@
-FROM sonarqube:8.2-community
+FROM sonarqube:9.9.1-community
+
+# if  you're upgrading from 8.2.2 you'll need this intermediate image to do the DB upgrade. See docs/upgrading-lts.md
+# FROM sonarqube:8.9.10-community
 
 MAINTAINER Erik Jacobs <erikmjacobs@gmail.com>
 MAINTAINER Siamak Sadeghianfar <siamaksade@gmail.com>
@@ -19,7 +22,7 @@ LABEL summary="$SUMMARY" \
   release="$SONAR_VERSION"
 
 # Define Plug-in Versions
-ARG SONAR_ZAP_PLUGIN_VERSION=1.2.0
+ARG SONAR_ZAP_PLUGIN_VERSION=2.3.0
 ENV SONARQUBE_PLUGIN_DIR="$SONARQUBE_HOME/extensions/plugins"
 
 # Switch to root for package installs
@@ -27,20 +30,6 @@ USER 0
 RUN apt-get update && \
     apt-get install -y curl zip
 
-# ===============================================================================================
-# Mitigation for CVE-2021-44228 and CVE-2021-45046
-#   - Set LOG4J_FORMAT_MSG_NO_LOOKUPS=true
-#   - Remove JndiLookup.class from the classpath.
-#
-# References:
-#   - https://logging.apache.org/log4j/2.x/security.html
-#
-# Search for jars containing JndiLookup.class:
-#   - find / -name log4j-core*.jar -exec unzip -vl {} \; 2>/dev/null | grep JndiLookup.class
-# -----------------------------------------------------------------------------------------------
-ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
-RUN find / -name log4j-core*.jar -exec zip -q -d {} org/apache/logging/log4j/core/lookup/JndiLookup.class \; 2>/dev/null
-# ===============================================================================================
 
 # ================================================================================================================================================================================
 # Bundle Plug-in(s)
@@ -58,7 +47,9 @@ WORKDIR $SONARQUBE_HOME
 # random UIDs.
 RUN chown -R 1001:0 "$SONARQUBE_HOME" \
   && chgrp -R 0 "$SONARQUBE_HOME" \
-  && chmod -R g+rwX "$SONARQUBE_HOME" \
-  && chmod 775 "$SONARQUBE_HOME/bin/run.sh"
+  && chmod -R g+rwX "$SONARQUBE_HOME"
 
+EXPOSE 9000
+
+# this sets the default user for running in openshift
 USER 1001

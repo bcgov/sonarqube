@@ -46,12 +46,12 @@ SonarQube server images are now available on DockerHub:
 ### Building the SonarQube Server Image
 
 
-The SonarQube server image (`bcgovimages/sonarqube:8.2.2`) is already available on DockerHub, so **you do not have to repeat this step** unless you are building a customized or updated version of the SonarQube Server.
+The SonarQube server image (`bcgovimages/sonarqube:9.9.1`) is already available on DockerHub, so **you do not have to repeat this step** unless you are building a customized or updated version of the SonarQube Server.
 
 Logon to your `tools` project and run the following command:
 
 ```bash
-oc new-build https://github.com/BCDevOps/sonarqube --strategy=docker --name=sonarqube --to=sonarqube:8.2.2
+oc new-build https://github.com/BCDevOps/sonarqube --strategy=docker --name=sonarqube --to=sonarqube:9.9.1
 ```
 
 ### Deploy on OpenShift
@@ -62,7 +62,7 @@ The [sonarqube-postgresql-template](./sonarqube-postgresql-template.yaml) has be
 Logon to your `tools` project and run the following command:
 
 ```bash
-oc new-app -f sonarqube-postgresql-template.yaml --param=SONARQUBE_VERSION=8.2.2
+oc new-app -f sonarqube-postgresql-template.yaml --param=SONARQUBE_VERSION=9.9.1
 ```
 
 ### Change the Default Admin Password
@@ -126,7 +126,7 @@ You can now browse your project report on the SonarQube server site. To find the
 Now that you have static scanning, you'll probably notice your code coverage results are at 0% since no unit tests are being executed during the scan. You'll likely what to integrate unit tests into the scans so you get code coverage metrics to help you determine how well you are testing your code. **As you journey down this road, please contribute your experience back to this project to make it better for the whole community.**
 
 ### Integrate OWASP ZAP Security Vulnerability Scanning into SonarQube
-To make the results of your ZAP security vulnerability scanning accessible and therefore more actionable, you can integrate the scan results into a SonarQube project report.  To accomplish this you can use the [ZAP Plugin for SonarQube](https://github.com/Coveros/zap-sonar-plugin), which is bundled in the `bcgovimages/sonarqube:8.2.2` image.
+To make the results of your ZAP security vulnerability scanning accessible and therefore more actionable, you can integrate the scan results into a SonarQube project report.  To accomplish this you can use the [ZAP Plugin for SonarQube](https://github.com/Coveros/zap-sonar-plugin), which is bundled in the `bcgovimages/sonarqube:9.9.1` image.
 The [SonarQube-Integrated-ZapScan-Jenkinsfile](./jenkins/SonarQube-Integrated-ZapScan-Jenkinsfile) example shows you how to utilize ZAP and the plug-in together to perform a ZAP security vulnerability scan on your application, and then publish the report with SonarQube.
 
 The example can be used as a starting point for your project.
