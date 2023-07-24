@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: template.openshift.io/v1
 kind: Template
 message: "Login to SonarQube with the default admin user: admin/admin"
 metadata:
@@ -138,24 +138,6 @@ objects:
       password: ${POSTGRESQL_PASSWORD}
 
   - apiVersion: v1
-    kind: ImageStream
-    metadata:
-      labels:
-        app: sonarqube
-        role: ${SONARQUBE_ROLE}
-      name: sonarqube
-    spec:
-      tags:
-        - annotations:
-            description: The SonarQube Docker image
-            tags: sonarqube
-          from:
-            kind: DockerImage
-            name: "${SONARQUBE_SOURCE_IMAGE_NAME}:${SONARQUBE_VERSION}"
-          importPolicy: {}
-          name: "${SONARQUBE_VERSION}"
-
-  - apiVersion: v1
     kind: DeploymentConfig
     metadata:
       labels:
@@ -189,14 +171,14 @@ objects:
         spec:
           containers:
             - env:
-                - name: SONARQUBE_JDBC_PASSWORD
+                - name: SONAR_JDBC_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: password
                       name: postgresql-sonar-password
-                - name: SONARQUBE_JDBC_URL
+                - name: SONAR_JDBC_URL
                   value: "jdbc:postgresql://postgresql-sonarqube/sonar"
-                - name: SONARQUBE_JDBC_USERNAME
+                - name: SONAR_JDBC_USERNAME
                   value: sonar
                 - name: SONAR_FORCEAUTHENTICATION
                   value: "true"
