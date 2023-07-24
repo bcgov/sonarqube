@@ -177,7 +177,7 @@ objects:
                       key: password
                       name: postgresql-sonar-password
                 - name: SONAR_JDBC_URL
-                  value: "jdbc:postgresql://postgresql-sonarqube/sonar"
+                  value: "jdbc:postgresql://postgresql-sonarqube:5432/sonar"
                 - name: SONAR_JDBC_USERNAME
                   value: sonar
                 - name: SONAR_FORCEAUTHENTICATION
