@@ -138,6 +138,24 @@ objects:
       password: ${POSTGRESQL_PASSWORD}
 
   - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      labels:
+        app: sonarqube
+        role: ${SONARQUBE_ROLE}
+      name: sonarqube
+    spec:
+      tags:
+        - annotations:
+            description: The SonarQube Docker image
+            tags: sonarqube
+          from:
+            kind: DockerImage
+            name: "${SONARQUBE_SOURCE_IMAGE_NAME}:${SONARQUBE_VERSION}"
+          importPolicy: {}
+          name: "${SONARQUBE_VERSION}"
+
+  - apiVersion: v1
     kind: DeploymentConfig
     metadata:
       labels:
