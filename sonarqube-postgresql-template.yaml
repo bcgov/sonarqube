@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: template.openshift.io/v1
 kind: Template
 message: "Login to SonarQube with the default admin user: admin/admin"
 metadata:
@@ -189,14 +189,14 @@ objects:
         spec:
           containers:
             - env:
-                - name: SONARQUBE_JDBC_PASSWORD
+                - name: SONAR_JDBC_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: password
                       name: postgresql-sonar-password
-                - name: SONARQUBE_JDBC_URL
-                  value: "jdbc:postgresql://postgresql-sonarqube/sonar"
-                - name: SONARQUBE_JDBC_USERNAME
+                - name: SONAR_JDBC_URL
+                  value: "jdbc:postgresql://postgresql-sonarqube:5432/sonar"
+                - name: SONAR_JDBC_USERNAME
                   value: sonar
                 - name: SONAR_FORCEAUTHENTICATION
                   value: "true"
