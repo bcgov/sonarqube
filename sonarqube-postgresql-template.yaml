@@ -431,7 +431,7 @@ parameters:
   - displayName: SonarQube Source Image Name
     name: SONARQUBE_SOURCE_IMAGE_NAME
     required: true
-    value: docker-remote.artifacts.developer.gov.bc.ca/bcgovimages/sonarqube
+    value: ghcr.io/bcgov/sonarqube
   - displayName: SonarQube version
     name: SONARQUBE_VERSION
     required: true
