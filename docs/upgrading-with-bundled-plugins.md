@@ -1,8 +1,8 @@
 # Upgrading with Bundled Plugins
 
-*The following "trick" is a workaround for [Missing plugins when upgrading Sonarqube Versions](https://github.com/BCDevOps/sonarqube/issues/6)*
+*The following "trick" is a workaround for [Missing plugins when upgrading Sonarqube Versions](https://github.com/bcgov/sonarqube/issues/6)*
 
-When upgrading Sonarqube to a newer image, such as going from `bcgovimages/sonarqube:6.7.1` to `bcgovimages/sonarqube:6.7.5` which has a couple of handy plugins bundled with it, you may find the plugins don't get installed/registered.  Sonarqube does not seem to install bundled plugins when upgrading image versions.
+When upgrading Sonarqube to a newer image, such as going from `bcgov/sonarqube:6.7.1` to `bcgov/sonarqube:6.7.5` which has a couple of handy plugins bundled with it, you may find the plugins don't get installed/registered.  Sonarqube does not seem to install bundled plugins when upgrading image versions.
 
 Luckily the plugins are still included in the image.  So you can simply copy them into the plugins directory.
 

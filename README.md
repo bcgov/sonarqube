@@ -20,7 +20,7 @@ labels:
 
 # SonarQube on OpenShift
 
-The [sonarqube](https://github.com/BCDevOps/sonarqube) repository contains all of the resources required to deploy a SonarQube server instance into a BCGov OpenShift pathfinder environment, and integrate SonarQube scanning into your Jenkins pipeline.
+The [sonarqube](https://github.com/bcgov/sonarqube) repository contains all of the resources required to deploy a SonarQube server instance into a BCGov OpenShift pathfinder environment, and integrate SonarQube scanning into your Jenkins pipeline.
 
 This work was inspired by the OpenShift Demos SonarQube for OpenShift:
 https://github.com/OpenShiftDemos/sonarqube-openshift-docker
@@ -39,19 +39,19 @@ The following instructions describe how to build and deploy a SonarQube server i
 
 ### SonarQube Server Images
 
-SonarQube server images are now available on DockerHub:
+SonarQube server images are now available on ghcr.io:
 
-- [bcgovimages/sonarqube](https://hub.docker.com/r/bcgovimages/sonarqube/)
+- [bcgov/sonarqube](https://github.com/bcgov/sonarqube/pkgs/container/sonarqube/)
 
 ### Building the SonarQube Server Image
 
 
-The SonarQube server image (`bcgovimages/sonarqube:9.9.1`) is already available on DockerHub, so **you do not have to repeat this step** unless you are building a customized or updated version of the SonarQube Server.
+The SonarQube server image (`bcgov/sonarqube:9.9.1`) is already available on ghcr.io, so **you do not have to repeat this step** unless you are building a customized or updated version of the SonarQube Server.
 
 Logon to your `tools` project and run the following command:
 
 ```bash
-oc new-build https://github.com/BCDevOps/sonarqube --strategy=docker --name=sonarqube --to=sonarqube:9.9.1
+oc new-build https://github.com/bcgov/sonarqube --strategy=docker --name=sonarqube --to=sonarqube:9.9.1
 ```
 
 ### Deploy on OpenShift
@@ -126,7 +126,7 @@ You can now browse your project report on the SonarQube server site. To find the
 Now that you have static scanning, you'll probably notice your code coverage results are at 0% since no unit tests are being executed during the scan. You'll likely what to integrate unit tests into the scans so you get code coverage metrics to help you determine how well you are testing your code. **As you journey down this road, please contribute your experience back to this project to make it better for the whole community.**
 
 ### Integrate OWASP ZAP Security Vulnerability Scanning into SonarQube
-To make the results of your ZAP security vulnerability scanning accessible and therefore more actionable, you can integrate the scan results into a SonarQube project report.  To accomplish this you can use the [ZAP Plugin for SonarQube](https://github.com/Coveros/zap-sonar-plugin), which is bundled in the `bcgovimages/sonarqube:9.9.1` image.
+To make the results of your ZAP security vulnerability scanning accessible and therefore more actionable, you can integrate the scan results into a SonarQube project report.  To accomplish this you can use the [ZAP Plugin for SonarQube](https://github.com/Coveros/zap-sonar-plugin), which is bundled in the `bcgov/sonarqube:9.9.1` image.
 The [SonarQube-Integrated-ZapScan-Jenkinsfile](./jenkins/SonarQube-Integrated-ZapScan-Jenkinsfile) example shows you how to utilize ZAP and the plug-in together to perform a ZAP security vulnerability scan on your application, and then publish the report with SonarQube.
 
 The example can be used as a starting point for your project.
@@ -155,7 +155,7 @@ Additional details regarding the `openshift/jenkins-slave-zap` image can be foun
 
 Now that you are scanning your code you can publish the summary of the results using badges in your project's top-level ReadMe file.
 
-For SonarQube versions <7.1 you will need to use the [SVG Badges](https://github.com/QualInsight/qualinsight-plugins-sonarqube-badges) plug-in, which is bundled in the `bcgovimages/sonarqube:6.7.5` image. Starting with SonarQube 7.1, badges are available from the platform without a plugin.
+For SonarQube versions <7.1 you will need to use the [SVG Badges](https://github.com/QualInsight/qualinsight-plugins-sonarqube-badges) plug-in, which is bundled in the `bcgov/sonarqube:6.7.5` image. Starting with SonarQube 7.1, badges are available from the platform without a plugin.
 
 # Examples
 
